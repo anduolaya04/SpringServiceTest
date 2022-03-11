@@ -23,6 +23,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+test {
+	useJUnitPlatform()
+}
+
 frontend {
 	nodeVersion = '10.15.3'
 	// See 'scripts' section in your 'package.json file'

@@ -47,7 +47,9 @@ public class EmployeeController {
     }
     @CrossOrigin
     @GetMapping("/{id}")
-    public EmployeeWithSalary getEmployeeById(@PathVariable int id){
+    public List<EmployeeWithSalary> getEmployeeById(@PathVariable int id){
+
+        List<EmployeeWithSalary> employeeWithSalaryList = new ArrayList<>();
 
         EmployeeWithSalary employeeWithSalary = new EmployeeWithSalary();
         Employee employee = repository.findById(id);
@@ -55,6 +57,8 @@ public class EmployeeController {
         employeeWithSalary.setEmployee(employee);
         employeeWithSalary.setAnualSalary(Long.valueOf(employee.getEmployee_salary()) * 12);
 
-        return employeeWithSalary;
+        employeeWithSalaryList.add(employeeWithSalary);
+
+        return employeeWithSalaryList;
     }
 }

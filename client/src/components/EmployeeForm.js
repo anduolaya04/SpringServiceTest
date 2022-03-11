@@ -10,8 +10,10 @@ function EmployeeForm() {
     return (
         <div className="EmployeeForm">
           <header className="EmployeeForm-Header">
-            <input type="text" id='inquiry'/>
+            <input type="number" id='inquiry'/>
+            <p></p>
             <button onClick={callApi}>Consultar</button>
+            <p></p>
             <table>
                 <thead>
                     <tr>
@@ -43,15 +45,26 @@ function EmployeeForm() {
         </div>
     );
 
-    function getVal() {
-      const id = document.querySelector('input').value;
-    }
-
     function callApi() {
 
-        fetch(`${INVENTORY_API_URL}`, {method:'GET'})
-            .then(res => res.json())
-            .then(json => setData(json));
+        var bruh = document.getElementById("inquiry").value;
+
+        fetch(`${INVENTORY_API_URL}/${bruh}`, {method:'GET'})
+            .then( res =>{
+                if(res.ok){
+                    return res.json();
+                } 
+            })
+            .then( json =>{
+                    if(Object.entries(json).length !== 0){
+                        setData(json);
+                    }  
+                }
+            )
+            .catch(error =>{   
+                alert("NOT FOUND");                  
+                console.log('Request failed', error); 
+            });
     }
 }
 export default EmployeeForm;
